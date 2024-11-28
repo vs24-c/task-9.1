@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Products</title>
+    <link rel='stylesheet' href='/stylesheets/add.css' />
+    <link rel='stylesheet' href='/stylesheets/header.css' />
+  </head>
+  <body>
+    <%- include('./parts/header.ejs') %>
+    <div class="wrapper">
+      <h1>Add Phone</h1>
+      <% if (errors?.length > 0) { %>
+        <ul class="error-box">
+          <% errors?.forEach(function(error) { %>
+            <li class="error-message"><%= error?.msg %></li>
+          <% }); %>
+        </ul>
+        <% } %>
+      <form action="/products/add<%= product?.id ? '/' + product.id : '' %>" method="post" enctype="multipart/form-data">
+        <label for="title">Brand:
+        <input type="text" id="title" name="title" required value="<%= product?.title %>"/>
+          </label>
+        <label for="price">Price:
+        <input type="number" id="price" name="price" required value="<%= product?.price %>"/>
+          </label>
+        <label for="counter">Quantity:
+        <input type="number" id="counter" name="counter" required value="<%= product?.counter %>"/>
+        </label>
+        <label for="image">Image:
+        <input type="file" id="image_file" name="imageSrc"  value="<%= product?.image %>"/>
+        </label>
+        <div class="form__image">
+          <img id="imagePrew" src="<%= product && product.id ? '/' + product.image : '/empty-file.jpg' %>" alt="">
+        </div>
+        <button type="submit"><%= product && product?.id ? 'Edit' : 'Add' %></button>
+      </form>
+    </div>
+    <script src="/javascripts/script.js"></script>
+  </body>
+</html>

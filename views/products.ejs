@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Products</title>
+    <link rel='stylesheet' href='/stylesheets/products.css' />
+    <link rel='stylesheet' href='/stylesheets/header.css' />
+  </head>
+  <body>
+    <%- include('./parts/header.ejs') %>
+    <div class="wrapper">
+      <div class="products__title">
+        <h1>Catalog Phone</h1>
+        <form action="/products" method="post" class="form">
+          <div id="user-status" data-id ="<%= LoggedIn ? 'true' : 'false' %>"></div>
+        <select name="sort"  class="products__sort">
+          <option>Sort by</option>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+        </form>
+      </div>
+      <div class="products">
+        <% products?.forEach(prod => { %>
+        <div class="products__card">
+          <div class="products__img">
+            <img src="data:image;base64,<%= prod?.imageSrc %>" alt="">
+          </div>
+          <ul>
+            <li>Phone:<span><%= prod?.title %></span></li>
+            <li>Price:<span><%= prod?.price %> $</span></li>
+            <li>Quantity:<span><%= prod?.counter %> pc</span></li>
+          </ul>
+          <div class="btn__box">
+            <a class="btn edit" href="/products/add/<%= prod?.id %>">Edit</a>
+            <button data-delete="<%= prod?.id %>" class="btn delete" type="button">Delit</button>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <script type="module" src="/javascripts/script_sort.js"></script>
+  </body>
+</html>
